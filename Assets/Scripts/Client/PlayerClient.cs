@@ -27,6 +27,9 @@ namespace Client
 
         private Queue<ReconciliationInfo> reconciliationHistory = new Queue<ReconciliationInfo>();
 
+        private Camera playerCamera;
+        private Transform eyes;
+
         [Header("Settings")]
         [SerializeField]
         private float sensitivityX = 5;
@@ -37,6 +40,8 @@ namespace Client
         {
             playerLogic = GetComponent<PlayerLogic>();
             interpolation = GetComponent<PlayerInterpolation>();
+            
+            eyes = gameObject.transform.Find("Eyes");
         }
 
         public void Initialize(ushort id, string playerName)
@@ -50,6 +55,10 @@ namespace Client
                 Camera.main.transform.SetParent(transform);
                 Camera.main.transform.localPosition = new Vector3(0, 1.5f, 0);
                 Camera.main.transform.localRotation = Quaternion.identity;
+                playerCamera = Camera.main;
+
+                Cursor.lockState = CursorLockMode.Locked;
+
                 interpolation.CurrentData = new PlayerStateData(this.id, 0, Vector3.zero, 0f, 0f);
             }
         }
@@ -69,6 +78,17 @@ namespace Client
 
                 yaw += Input.GetAxis("Mouse X") * sensitivityX;
                 pitch += Input.GetAxis("Mouse Y") * sensitivityY;
+
+                if (pitch >= 35.0)
+                {
+                    pitch = 35f;
+                }                    
+                else if (pitch <= -55.0)
+                {
+                    pitch = -55f;
+                }
+
+                playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
 
                 PlayerInputData inputData = new PlayerInputData(inputs, yaw, pitch, GameManager.Instance.LastReceivedServerTick - 1U);
 
@@ -99,7 +119,6 @@ namespace Client
                     ReconciliationInfo info = reconciliationHistory.Dequeue();
                     if (Vector3.Distance(info.Data.Position, playerStateData.Position) > 0.05f)
                     {
-
                         List<ReconciliationInfo> infos = reconciliationHistory.ToList();
                         interpolation.CurrentData = playerStateData;
                         transform.position = playerStateData.Position;
@@ -115,6 +134,7 @@ namespace Client
             else
             {
                 interpolation.SetFramePosition(playerStateData);
+                eyes.rotation = Quaternion.Euler(playerStateData.Pitch, playerStateData.Yaw, 0);
             }
         }
     }

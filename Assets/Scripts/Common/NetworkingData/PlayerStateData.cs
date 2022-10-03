@@ -36,10 +36,10 @@ namespace Common.NetworkingData
             e.Writer.Write(Position.y);
             e.Writer.Write(Position.z);
 
-            e.Writer.Write(Yaw);
-            e.Writer.Write(Pitch);
             e.Writer.Write(Id);
             e.Writer.Write(Gravity);
+            e.Writer.Write(Yaw);
+            e.Writer.Write(Pitch);
         }
     }
 	

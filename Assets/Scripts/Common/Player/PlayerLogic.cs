@@ -77,6 +77,7 @@ namespace Common.Player
             }
 
             CharacterController.Move(movement);
+
             return new PlayerStateData(currentState.Id, gravity.y, transform.localPosition, input.Yaw, input.Pitch);
         }
     }

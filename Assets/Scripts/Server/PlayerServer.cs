@@ -19,6 +19,7 @@ namespace Server
 		public PlayerStateData CurrentPlayerStateData => currentPlayerStateData;
 
 		private ClientConnection clientConnection;
+
 		private ServerInstance serverInstance;
 
 		private PlayerStateData currentPlayerStateData;
@@ -27,9 +28,12 @@ namespace Server
 
 		private PlayerInputData[] inputs;
 
+		private Transform eyes;
+
 		void Awake()
 		{
 			PlayerLogic = GetComponent<PlayerLogic>();
+			eyes = gameObject.transform.Find("Eyes");
 		}
 
 		public void Initialize(Vector3 position, ClientConnection clientConnection)
@@ -80,6 +84,7 @@ namespace Server
 
 			transform.localPosition = currentPlayerStateData.Position;
 			transform.localRotation = Quaternion.Euler(0.0f, currentPlayerStateData.Yaw, 0.0f);
+			eyes.rotation = Quaternion.Euler(currentPlayerStateData.Pitch, currentPlayerStateData.Yaw, 0);
 			return currentPlayerStateData;
 		}
 
