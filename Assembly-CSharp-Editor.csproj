@@ -61,8 +61,8 @@
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\Editor\UnityServerEditor.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\Editor\XmlUnityServerEditor.cs" />
     <Compile Include="Assets\ThirdParty\SmartNS\Editor\SmartNS.cs" />
-    <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\Editor\UnityClientEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\Builds.cs" />
+    <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\Editor\UnityClientEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

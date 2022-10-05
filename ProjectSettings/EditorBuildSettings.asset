@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Client/Client.unity
     guid: a8c5a076c92fafc459c0f9b739cc40c1
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Server/Server.unity
     guid: 9e11a5cfef778a14c87008f5c02e0fc7
   m_configObjects: {}

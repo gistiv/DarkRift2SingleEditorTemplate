@@ -1,9 +1,7 @@
-﻿using Common;
-using Common.NetworkingData;
+﻿using Common.NetworkingData;
 using DarkRift;
 using DarkRift.Server;
 using DarkRift.Server.Unity;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -84,7 +82,7 @@ namespace Server
         private void OnclientLogin(IClient client, LoginRequestData data)
         {
             // Check if player is already logged in (name already chosen in our case) and if not create a new object to represent a logged in client.
-            if (PlayersByName.ContainsKey(data.Name))
+            if (PlayersByName.ContainsKey(data.Name) || PlayersByName.Count >= ServerInstance.MaxSlots)
             {
                 using (Message message = Message.CreateEmpty((ushort)NetworkingTags.LoginRequestDenied))
                 {

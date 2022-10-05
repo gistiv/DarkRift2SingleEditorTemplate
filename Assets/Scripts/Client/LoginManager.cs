@@ -1,12 +1,13 @@
 ﻿using System;
-using Common;
+using System.Collections;
+using System.Linq;
 using Common.NetworkingData;
 using DarkRift;
 using DarkRift.Client;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Utility;
 
 namespace Client
 {
@@ -15,13 +16,31 @@ namespace Client
     {
         [Header("References")]
         [SerializeField]
-        private TMP_Text nameInput;
+        private InputField nameInput;
 
         [SerializeField]
         private Button submitLoginButton;
 
         void Start()
         {
+            Invoke(nameof(DelayedStart), .5f);
+        }
+
+        private void DelayedStart()
+        {
+            if (CommandLineArgsHelper.GetUserNameFromCL(out string username))
+            {
+                nameInput.text = username;
+                submitLoginButton.enabled = false;
+                OnSubmitLogin();
+            }
+            else if (Application.isEditor)
+            {
+                nameInput.text = "test";
+                submitLoginButton.enabled = false;
+                OnSubmitLogin();
+            }
+
             submitLoginButton.onClick.AddListener(OnSubmitLogin);
 
             ConnectionManager.Instance.OnConnected += StartLoginProcess;
@@ -68,13 +87,22 @@ namespace Client
 
         private void OnLoginDecline()
         {
-            // todo: error screnn with reason why declined
+            Debug.LogError("Login declined");
         }
 
         private void OnLoginAccept(LoginInfoData data)
         {
             ConnectionManager.Instance.PlayerId = data.Id;
-            SceneManager.LoadScene("Client");
+
+            if (Application.isEditor && GameObject.Find("SinglePlayerServer") != null)
+            {
+                SceneManager.LoadScene("Client", LoadSceneMode.Additive);
+                SceneManager.UnloadSceneAsync("Login");
+            }
+            else
+            {
+                SceneManager.LoadScene("Client");
+            }
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using UnityEditor;
@@ -57,7 +58,7 @@ public class Builds
     static void RunClient()
     {
         string exeFileAndLocation = $"{Directory.GetCurrentDirectory()}/{ClientPath}";
-        string arguments = "";
+        string arguments = $"-username test_{new Random().Next(100, 999)}";
 
         Process.Start(exeFileAndLocation, arguments);
     }

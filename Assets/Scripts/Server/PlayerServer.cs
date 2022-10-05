@@ -3,14 +3,12 @@ using Common.NetworkingData;
 using Common.Player;
 using DarkRift;
 using DarkRift.Server;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Server
 {
 
-	[RequireComponent(typeof(PlayerLogic))]
+    [RequireComponent(typeof(PlayerLogic))]
 	public class PlayerServer : MonoBehaviour
 	{
 		public PlayerLogic PlayerLogic { get; private set; }

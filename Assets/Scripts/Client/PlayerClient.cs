@@ -1,8 +1,6 @@
-﻿using Common;
-using Common.NetworkingData;
+﻿using Common.NetworkingData;
 using Common.Player;
 using DarkRift;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,9 +30,9 @@ namespace Client
 
         [Header("Settings")]
         [SerializeField]
-        private float sensitivityX = 5;
+        private float sensitivityX = 3;
         [SerializeField]
-        private float sensitivityY = -5;
+        private float sensitivityY = -3;
 
         void Awake()
         {

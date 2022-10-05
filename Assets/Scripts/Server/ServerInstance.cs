@@ -1,24 +1,20 @@
-﻿using Common;
-using Common.NetworkingData;
+﻿using Common.NetworkingData;
 using DarkRift;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Server
 {
-	
-	public class ServerInstance : MonoBehaviour
+
+    public class ServerInstance : MonoBehaviour
 	{
         [Header("Prefabs")]
         [SerializeField]
         public GameObject PlayerPrefab;
 
         [Header("Public Fields")]
-        public string Name;
-
-        public byte MaxSlots;
+        public byte MaxSlots = 25;
 
         public uint ServerTick;
 
@@ -39,7 +35,7 @@ namespace Server
         void Start()
         {
             CreateSceneParameters csp = new CreateSceneParameters(LocalPhysicsMode.Physics3D);
-            scene = SceneManager.CreateScene("Server" + name, csp);
+            scene = SceneManager.CreateScene(gameObject.name, csp);
             physicsScene = scene.GetPhysicsScene();
 
             SceneManager.MoveGameObjectToScene(gameObject, scene);

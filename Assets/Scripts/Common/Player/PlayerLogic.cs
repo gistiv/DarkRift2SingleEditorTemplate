@@ -1,11 +1,9 @@
 ﻿using Common.NetworkingData;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Common.Player
 {
-	[RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(CharacterController))]
 	public class PlayerLogic : MonoBehaviour
 	{
         private Vector3 gravity;

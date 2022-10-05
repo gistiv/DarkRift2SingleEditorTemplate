@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DarkRift;
 using DarkRift.Client.Unity;
@@ -44,7 +42,7 @@ namespace Client
             Client = GetComponent<UnityClient>();
         }
 
-        void Start()
+        private void Start()
         {
             Client.ConnectInBackground(IPAddress.Parse(ipAdress), port, false, ConnectCallback);
         }

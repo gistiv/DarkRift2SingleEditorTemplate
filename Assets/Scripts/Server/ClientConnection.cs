@@ -1,12 +1,11 @@
-﻿using Common;
-using Common.NetworkingData;
+﻿using Common.NetworkingData;
 using DarkRift;
 using DarkRift.Server;
 
 namespace Server
 {
-	
-	public class ClientConnection
+
+    public class ClientConnection
 	{
         public string Name { get; }
 

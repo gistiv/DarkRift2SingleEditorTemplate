@@ -1,12 +1,10 @@
 ﻿using Common.NetworkingData;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Client
 {
-	
-	public class PlayerInterpolation : MonoBehaviour
+
+    public class PlayerInterpolation : MonoBehaviour
 	{
 		private float lastInputTime;
 
