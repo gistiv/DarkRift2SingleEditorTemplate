@@ -120,7 +120,7 @@ namespace Client
 
         void SpawnPlayer(PlayerSpawnData playerSpawnData)
         {
-            GameObject go = Instantiate(PlayerPrefab);
+            GameObject go = Instantiate(Resources.Load<GameObject>("Prefabs\\Gameplay\\Player\\Player"));
             // PlayerInterpolation gets added through the RequireComponentent of the PlayerClient
             PlayerClient player = go.AddComponent<PlayerClient>();
 

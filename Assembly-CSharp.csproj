@@ -69,11 +69,11 @@
     <Compile Include="Assets\ThirdParty\FreeFlyCamera\Scripts\FreeFlyCamera.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\GameUpdateData.cs" />
     <Compile Include="Assets\Scripts\Client\ConnectionManager.cs" />
-    <Compile Include="Assets\Scripts\Utility\CommandLineArgsHelper.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\PlayerSpawnData.cs" />
     <Compile Include="Assets\Scripts\Client\PlayerClient.cs" />
     <Compile Include="Assets\Scripts\Common\Buffer.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\LoginRequestData.cs" />
+    <Compile Include="Assets\Scripts\Utility\SinglePlayerServer.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\NetworkingTags.cs" />
     <Compile Include="Assets\Scripts\Client\GameManager.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\LoginInfoData.cs" />
@@ -85,7 +85,10 @@
     <Compile Include="Assets\Scripts\Server\ClientConnection.cs" />
     <Compile Include="Assets\Scripts\Client\PlayerInterpolation.cs" />
     <Compile Include="Assets\Scripts\Server\ServerInstance.cs" />
-    <Compile Include="Assets\Scripts\Utility\SinglePlayerServer.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\DebugUtility.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\DebugMessage.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\CommandLineArgsHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.xml" />

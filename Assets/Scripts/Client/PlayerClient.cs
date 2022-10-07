@@ -4,6 +4,7 @@ using DarkRift;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Utility.Debugging;
 
 namespace Client
 {
@@ -63,44 +64,46 @@ namespace Client
 
         void FixedUpdate()
         {
-            if (isOwn)
+            if (!isOwn || (DebugUtility.Instance != null && DebugUtility.Instance.DebugConsoleOverlayActive))
             {
-                bool[] inputs = new bool[7];
-                inputs[0] = Input.GetKey(KeyCode.W);
-                inputs[1] = Input.GetKey(KeyCode.A);
-                inputs[2] = Input.GetKey(KeyCode.S);
-                inputs[3] = Input.GetKey(KeyCode.D);
-                inputs[4] = Input.GetKey(KeyCode.Space);
-                inputs[5] = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-                inputs[6] = Input.GetMouseButton(0);
-
-                yaw += Input.GetAxis("Mouse X") * sensitivityX;
-                pitch += Input.GetAxis("Mouse Y") * sensitivityY;
-
-                if (pitch >= 35.0)
-                {
-                    pitch = 35f;
-                }                    
-                else if (pitch <= -55.0)
-                {
-                    pitch = -55f;
-                }
-
-                playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
-
-                PlayerInputData inputData = new PlayerInputData(inputs, yaw, pitch, GameManager.Instance.LastReceivedServerTick - 1U);
-
-                transform.position = interpolation.CurrentData.Position;
-                PlayerStateData nextStateData = playerLogic.GetNextFrameData(inputData, interpolation.CurrentData);
-                interpolation.SetFramePosition(nextStateData);
-
-                using (Message message = Message.Create((ushort)NetworkingTags.GamePlayerInput, inputData))
-                {
-                    ConnectionManager.Instance.Client.SendMessage(message, SendMode.Reliable);
-                }
-
-                reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));
+                return;
             }
+
+            bool[] inputs = new bool[7];
+            inputs[0] = Input.GetKey(KeyCode.W);
+            inputs[1] = Input.GetKey(KeyCode.A);
+            inputs[2] = Input.GetKey(KeyCode.S);
+            inputs[3] = Input.GetKey(KeyCode.D);
+            inputs[4] = Input.GetKey(KeyCode.Space);
+            inputs[5] = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+            inputs[6] = Input.GetMouseButton(0);
+
+            yaw += Input.GetAxis("Mouse X") * sensitivityX;
+            pitch += Input.GetAxis("Mouse Y") * sensitivityY;
+
+            if (pitch >= 35.0)
+            {
+                pitch = 35f;
+            }
+            else if (pitch <= -55.0)
+            {
+                pitch = -55f;
+            }
+
+            playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+
+            PlayerInputData inputData = new PlayerInputData(inputs, yaw, pitch, GameManager.Instance.LastReceivedServerTick - 1U);
+
+            transform.position = interpolation.CurrentData.Position;
+            PlayerStateData nextStateData = playerLogic.GetNextFrameData(inputData, interpolation.CurrentData);
+            interpolation.SetFramePosition(nextStateData);
+
+            using (Message message = Message.Create((ushort)NetworkingTags.GamePlayerInput, inputData))
+            {
+                ConnectionManager.Instance.Client.SendMessage(message, SendMode.Reliable);
+            }
+
+            reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));
         }
 
         public void OnServerDataUpdate(PlayerStateData playerStateData)

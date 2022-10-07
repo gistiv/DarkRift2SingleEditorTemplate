@@ -152,9 +152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 627e17bf1925ded45b912cf761e7ad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 174674088481997061, guid: 6cfd163f65f3073478a6f3096ee4e6b7,
-    type: 3}
-  Name: Server
   MaxSlots: 25
   ServerTick: 0
 --- !u!4 &308222376

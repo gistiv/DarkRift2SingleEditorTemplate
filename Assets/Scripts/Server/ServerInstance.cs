@@ -9,10 +9,6 @@ namespace Server
 
     public class ServerInstance : MonoBehaviour
 	{
-        [Header("Prefabs")]
-        [SerializeField]
-        public GameObject PlayerPrefab;
-
         [Header("Public Fields")]
         public byte MaxSlots = 25;
 
@@ -108,7 +104,8 @@ namespace Server
 
         public void JoinPlayerToGame(ClientConnection clientConnection)
         {
-            GameObject go = Instantiate(PlayerPrefab, transform);           
+            GameObject go = Instantiate(Resources.Load<GameObject>("Prefabs\\Gameplay\\Player\\Player"), transform);
+            
             PlayerServer player = go.AddComponent<PlayerServer>();
             serverPlayers.Add(player);
             playerStateData.Add(default);

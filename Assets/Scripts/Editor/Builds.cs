@@ -58,7 +58,7 @@ public class Builds
     static void RunClient()
     {
         string exeFileAndLocation = $"{Directory.GetCurrentDirectory()}/{ClientPath}";
-        string arguments = $"-username test_{new Random().Next(100, 999)}";
+        string arguments = $"-username test_{new Random().Next(100, 999)} -debugUtil";
 
         Process.Start(exeFileAndLocation, arguments);
     }
@@ -67,7 +67,7 @@ public class Builds
     static void RunServer()
     {
         string exeFileAndLocation = $"{Directory.GetCurrentDirectory()}/{ServerPath}";
-        string arguments = "";
+        string arguments = "-debugUtil";
 
         Process.Start(exeFileAndLocation, arguments);
     }

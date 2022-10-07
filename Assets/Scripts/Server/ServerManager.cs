@@ -4,6 +4,7 @@ using DarkRift.Server;
 using DarkRift.Server.Unity;
 using System.Collections.Generic;
 using UnityEngine;
+using Utility.Debugging;
 
 namespace Server
 {
@@ -31,6 +32,11 @@ namespace Server
 
             Instance = this;
             DontDestroyOnLoad(this);
+
+            if(CommandLineArgsHelper.DebugUtilityEnabled() || Application.isEditor)
+            {
+                Instantiate(Resources.Load("Prefabs\\Utility\\DebugUtility"));
+            }
         }
 
         void Start()
@@ -54,6 +60,7 @@ namespace Server
 
             if (Players.TryGetValue(client.ID, out p))
             {
+                Debug.Log($"Client [{p.Name} | {client.ID}] disconnected.");
                 p.OnClientDisconnect(sender, e);
             }
 
@@ -84,6 +91,8 @@ namespace Server
             // Check if player is already logged in (name already chosen in our case) and if not create a new object to represent a logged in client.
             if (PlayersByName.ContainsKey(data.Name) || PlayersByName.Count >= ServerInstance.MaxSlots)
             {
+                Debug.LogWarning($"Client login for player \"{data.Name}\" denied! Player count: {PlayersByName.Count}/{ServerInstance.MaxSlots}");
+
                 using (Message message = Message.CreateEmpty((ushort)NetworkingTags.LoginRequestDenied))
                 {
                     client.SendMessage(message, SendMode.Reliable);
@@ -94,6 +103,8 @@ namespace Server
 
             // In the future the ClientConnection will handle its messages
             client.MessageReceived -= OnMessage;
+
+            Debug.Log($"Client [{data.Name} | {client.ID}] logged in.");
 
             new ClientConnection(client, data, ServerInstance);
         }

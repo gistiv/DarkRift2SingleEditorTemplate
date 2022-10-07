@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using Common.NetworkingData;
+﻿using Common.NetworkingData;
 using DarkRift;
 using DarkRift.Client;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Utility;
+using Utility.Debugging;
 
 namespace Client
 {
@@ -39,6 +36,11 @@ namespace Client
                 nameInput.text = "test";
                 submitLoginButton.enabled = false;
                 OnSubmitLogin();
+            }
+
+            if (CommandLineArgsHelper.DebugUtilityEnabled())
+            {
+                Instantiate(Resources.Load("Prefabs\\Utility\\DebugUtility"));
             }
 
             submitLoginButton.onClick.AddListener(OnSubmitLogin);
