@@ -1,6 +1,7 @@
 ﻿using Common.NetworkingData;
 using DarkRift;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -63,12 +64,16 @@ namespace Server
             playerDespawnData.Clear();
         }
 
-        public void AddPlayer(ClientConnection clientConnection)
-        {
-            ClientConnections.Add(clientConnection);
-            clientConnection.ServerInstance = this;
-        }
+        // this method is just for demonstration purpose of the debug console
+        public void DisplacePlayer(int playerId, Vector3 newPosition)
+        {           
+            ClientConnection connection = ClientConnections.SingleOrDefault(x => x.Client.ID == playerId);
 
+            if(connection != null)
+            {
+                //connection.Player.SpawnPlayerAtPosition(newPosition);
+            }
+        }
 
         public void RemovePlayer(ClientConnection clientConnection)
         {
@@ -110,6 +115,9 @@ namespace Server
             serverPlayers.Add(player);
             playerStateData.Add(default);
             player.Initialize(Vector3.zero, clientConnection);
+
+            ClientConnections.Add(clientConnection);
+            clientConnection.ServerInstance = this;
 
             playerSpawnData.Add(player.GetPlayerSpawnData());
         }

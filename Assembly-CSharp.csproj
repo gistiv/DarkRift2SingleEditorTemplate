@@ -85,10 +85,16 @@
     <Compile Include="Assets\Scripts\Server\ClientConnection.cs" />
     <Compile Include="Assets\Scripts\Client\PlayerInterpolation.cs" />
     <Compile Include="Assets\Scripts\Server\ServerInstance.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\DebugConsole.cs" />
     <Compile Include="Assets\Scripts\Utility\Debugging\DebugUtility.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\DebugMessage.cs" />
     <Compile Include="Assets\Scripts\Utility\Debugging\CommandLineArgsHelper.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsServer.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsCommon.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsClient.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugConsole.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugMessage.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommandBase.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugConsoleInput.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.xml" />

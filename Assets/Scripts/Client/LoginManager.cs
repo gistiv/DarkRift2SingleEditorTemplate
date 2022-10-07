@@ -40,7 +40,8 @@ namespace Client
 
             if (CommandLineArgsHelper.DebugUtilityEnabled())
             {
-                Instantiate(Resources.Load("Prefabs\\Utility\\DebugUtility"));
+                GameObject go = Instantiate(Resources.Load("Prefabs\\Utility\\DebugUtility")) as GameObject;
+                go.GetComponent<DebugUtility>().RegisterAsClient();
             }
 
             submitLoginButton.onClick.AddListener(OnSubmitLogin);

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Utility.Debugging
+namespace Utility.Debugging.Console.Log
 {
     /// <summary>
     /// A struct to hold all the info about a debug message.

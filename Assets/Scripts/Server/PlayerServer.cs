@@ -56,6 +56,11 @@ namespace Server
 			inputBuffer.Add(input);
 		}
 
+		public void SpawnPlayerAtPosition(Vector3 position)
+        {
+			currentPlayerStateData = new PlayerStateData(Client.ID, 0, position, 0f, 0f);
+		}
+
 		public PlayerStateData PlayerUpdate()
 		{
 			inputs = inputBuffer.Get();

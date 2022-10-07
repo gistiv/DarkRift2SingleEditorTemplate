@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace Utility.Debugging.Console
+namespace Utility.Debugging.Console.Log
 {
     public class DebugConsole : MonoBehaviour
     {
@@ -28,18 +28,6 @@ namespace Utility.Debugging.Console
 
         // All the messages.
         private List<DebugMessage> Messages = new List<DebugMessage>();
-
-        void Start()
-        {
-            DontDestroyOnLoad(this);
-
-            // If it can find another debug console, destroy the object current game object.
-            DebugConsole otherConsole = FindObjectOfType<DebugConsole>();
-            if (otherConsole != null && otherConsole.transform != this.transform)
-            {
-                Destroy(gameObject);
-            }                
-        }
 
         private void OnEnable()
         {
@@ -72,7 +60,7 @@ namespace Utility.Debugging.Console
             if (DisplayConsole)
             {
                 // Begin an area.
-                GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height - 30), GUI.skin.box);
+                GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height - 25), GUI.skin.box);
                 // Begin the scroll area.
                 scroll = GUILayout.BeginScrollView(scroll);
 
