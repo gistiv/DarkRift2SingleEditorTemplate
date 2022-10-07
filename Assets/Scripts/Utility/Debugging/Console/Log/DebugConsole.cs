@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -43,7 +44,7 @@ namespace Utility.Debugging.Console.Log
 
         private void OnGetLogMessage(string message, string stackTrace, LogType type)
         {
-            message = "[" + System.DateTime.Now.Hour + ":" + System.DateTime.Now.Minute + ":" + System.DateTime.Now.Second + "] " + message;
+            message = $"[{DateTime.Now.ToString("hh:mm:ss.fff")}] {message}";
 
             // Trim the condition and stack trace.
             message = message.Trim();

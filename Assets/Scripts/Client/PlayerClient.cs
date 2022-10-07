@@ -64,33 +64,49 @@ namespace Client
 
         void FixedUpdate()
         {
-            if (!isOwn || (DebugUtility.Instance != null && DebugUtility.Instance.DebugConsoleOverlayActive))
+            if (!isOwn)
             {
                 return;
             }
 
             bool[] inputs = new bool[7];
-            inputs[0] = Input.GetKey(KeyCode.W);
-            inputs[1] = Input.GetKey(KeyCode.A);
-            inputs[2] = Input.GetKey(KeyCode.S);
-            inputs[3] = Input.GetKey(KeyCode.D);
-            inputs[4] = Input.GetKey(KeyCode.Space);
-            inputs[5] = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-            inputs[6] = Input.GetMouseButton(0);
 
-            yaw += Input.GetAxis("Mouse X") * sensitivityX;
-            pitch += Input.GetAxis("Mouse Y") * sensitivityY;
-
-            if (pitch >= 35.0)
+            // disable player input -> when debug console open, when dead or during cutscene/animation
+            if (DebugUtility.Instance != null && DebugUtility.Instance.DebugConsoleOverlayActive)
             {
-                pitch = 35f;
+                inputs[0] = false;
+                inputs[1] = false;
+                inputs[2] = false;
+                inputs[3] = false;
+                inputs[4] = false;
+                inputs[5] = false;
+                inputs[6] = false;
             }
-            else if (pitch <= -55.0)
+            // player input
+            else
             {
-                pitch = -55f;
-            }
+                inputs[0] = Input.GetKey(KeyCode.W);
+                inputs[1] = Input.GetKey(KeyCode.A);
+                inputs[2] = Input.GetKey(KeyCode.S);
+                inputs[3] = Input.GetKey(KeyCode.D);
+                inputs[4] = Input.GetKey(KeyCode.Space);
+                inputs[5] = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
+                inputs[6] = Input.GetMouseButton(0);
 
-            playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+                yaw += Input.GetAxis("Mouse X") * sensitivityX;
+                pitch += Input.GetAxis("Mouse Y") * sensitivityY;
+
+                if (pitch >= 35.0)
+                {
+                    pitch = 35f;
+                }
+                else if (pitch <= -55.0)
+                {
+                    pitch = -55f;
+                }
+
+                playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+            }
 
             PlayerInputData inputData = new PlayerInputData(inputs, yaw, pitch, GameManager.Instance.LastReceivedServerTick - 1U);
 

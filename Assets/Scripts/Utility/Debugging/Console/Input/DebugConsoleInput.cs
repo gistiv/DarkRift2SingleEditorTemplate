@@ -58,7 +58,13 @@ namespace Utility.Debugging.Console.Input
 
 		private void HandleInput()
         {
+            if (inputHistory.Contains(input))
+            {
+				inputHistory.Remove(input);
+            }
+
 			inputHistory.Add(input);
+
 			string[] parameters = input.Split(' '); 
 
             foreach (DebugCommandBase command in commandList)
@@ -128,8 +134,12 @@ namespace Utility.Debugging.Console.Input
                 GUI.Box(new Rect(0, Screen.height - inputHeight, Screen.width, inputHeight), "", GUI.skin.box);
 				GUI.Box(new Rect(0, Screen.height - inputHeight, Screen.width, inputHeight), "",GUI.skin.box);
 
+				GUI.SetNextControlName("consoleInput");
+				GUIStyle boxStyle = GUI.skin.box;
+				boxStyle.normal.textColor = Color.white;
 				input = GUI.TextField(new Rect(0, Screen.height - inputHeight, Screen.width, inputHeight), input, GUI.skin.box);
-            }
+				GUI.FocusControl("consoleInput");
+			}
             else
             {
 				ResetInputField();

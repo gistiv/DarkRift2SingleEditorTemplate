@@ -71,7 +71,7 @@ namespace Server
 
             if(connection != null)
             {
-                //connection.Player.SpawnPlayerAtPosition(newPosition);
+                connection.Player.SpawnPlayerAtPosition(newPosition);
             }
         }
 

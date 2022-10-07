@@ -26,13 +26,13 @@ namespace Utility.Debugging
 		{
 			string[] args = Environment.GetCommandLineArgs();
 
-			for (int i = 0; i < args.Length; i++)
-			{
-				if (args[i].Contains("-debugUtil"))
+            foreach (string arg in args)
+            {
+				if (arg.Contains("-debugUtil"))
 				{
 					return true;
 				}
-			}
+            }
 
 			return false;
 		}

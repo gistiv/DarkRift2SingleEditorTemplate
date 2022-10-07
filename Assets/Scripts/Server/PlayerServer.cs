@@ -58,6 +58,7 @@ namespace Server
 
 		public void SpawnPlayerAtPosition(Vector3 position)
         {
+			transform.localPosition = position;
 			currentPlayerStateData = new PlayerStateData(Client.ID, 0, position, 0f, 0f);
 		}
 
@@ -88,6 +89,7 @@ namespace Server
 			transform.localPosition = currentPlayerStateData.Position;
 			transform.localRotation = Quaternion.Euler(0.0f, currentPlayerStateData.Yaw, 0.0f);
 			eyes.rotation = Quaternion.Euler(currentPlayerStateData.Pitch, currentPlayerStateData.Yaw, 0);
+
 			return currentPlayerStateData;
 		}
 

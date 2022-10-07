@@ -27,6 +27,7 @@ namespace Utility.Debugging
 			}
 
 			Instance = this;
+			DontDestroyOnLoad(this);
 
 			console = GetComponent<DebugConsole>();
 			input = GetComponent<DebugConsoleInput>();

@@ -14,10 +14,8 @@ namespace Utility
 				Destroy(Camera.main.gameObject);
 				SceneManager.LoadScene("Login", LoadSceneMode.Additive);
 			}
-            else
-            {
-				Destroy(this);
-            }
+
+			Destroy(this);
 	    }
 	}
 	
