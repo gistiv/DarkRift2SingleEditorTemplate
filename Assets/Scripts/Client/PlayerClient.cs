@@ -116,7 +116,7 @@ namespace Client
 
             using (Message message = Message.Create((ushort)NetworkingTags.GamePlayerInput, inputData))
             {
-                ConnectionManager.Instance.Client.SendMessage(message, SendMode.Reliable);
+                ConnectionManager.Instance.Client.SendMessage(message, SendMode.Reliable);                
             }
 
             reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));

@@ -22,10 +22,9 @@ namespace Client
 
         [Header("Settings")]
         [SerializeField]
-        private string ipAdress;
-
+        public string Host;
         [SerializeField]
-        private int port;
+        public int Port;
 
 
         void Awake()
@@ -44,7 +43,32 @@ namespace Client
 
         private void Start()
         {
-            Client.ConnectInBackground(IPAddress.Parse(ipAdress), port, false, ConnectCallback);
+            IPAddress ip = new IPAddress(new byte[]{ 127,0,0,1});
+
+            if (IPAddress.TryParse(Host, out var address))
+            {
+                switch (address.AddressFamily)
+                {
+                    // ipv4 or ipv6
+                    case System.Net.Sockets.AddressFamily.InterNetwork:
+                    case System.Net.Sockets.AddressFamily.InterNetworkV6:
+                        ip = IPAddress.Parse(Host);
+                        break;
+                    default:
+                        throw new ArgumentException();
+                }
+            }
+            else
+            {
+                IPHostEntry hostEntry = Dns.GetHostEntry(Host);
+
+                if (hostEntry.AddressList.Length > 0)
+                {
+                    ip = hostEntry.AddressList[0];
+                }
+            }
+
+            Client.ConnectInBackground(ip, Port, true, ConnectCallback);
         }
 
         private void ConnectCallback(Exception exception)

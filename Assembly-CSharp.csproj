@@ -56,20 +56,29 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Utility\Debugging\DebugUtility.cs" />
     <Compile Include="Assets\Scripts\Common\Player\PlayerLogic.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\PlayerInputData.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\UnityClient.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommandBase.cs" />
     <Compile Include="Assets\Scripts\Server\ServerManager.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\PlayerDespawnData.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugConsole.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\UnityConsoleWriter.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\GameStartData.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugMessage.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsServer.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\UnityServer.cs" />
     <Compile Include="Assets\Scripts\Server\PlayerServer.cs" />
     <Compile Include="Assets\Scripts\Client\LoginManager.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\CommandLineArgsHelper.cs" />
     <Compile Include="Assets\ThirdParty\FreeFlyCamera\Scripts\FreeFlyCamera.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugConsoleInput.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\GameUpdateData.cs" />
     <Compile Include="Assets\Scripts\Client\ConnectionManager.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\PlayerSpawnData.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsClient.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsCommon.cs" />
     <Compile Include="Assets\Scripts\Client\PlayerClient.cs" />
     <Compile Include="Assets\Scripts\Common\Buffer.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\LoginRequestData.cs" />
@@ -78,6 +87,7 @@
     <Compile Include="Assets\Scripts\Client\GameManager.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\LoginInfoData.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\UnityServerHelper.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommand.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\SerializableObjectCacheSettings.cs" />
     <Compile Include="Assets\Scripts\Common\NetworkingData\PlayerStateData.cs" />
     <Compile Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\XmlUnityServer.cs" />
@@ -85,22 +95,18 @@
     <Compile Include="Assets\Scripts\Server\ClientConnection.cs" />
     <Compile Include="Assets\Scripts\Client\PlayerInterpolation.cs" />
     <Compile Include="Assets\Scripts\Server\ServerInstance.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\DebugUtility.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\CommandLineArgsHelper.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsServer.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsCommon.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Commands\DebugCommandsClient.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugConsole.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Log\DebugMessage.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommandBase.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugConsoleInput.cs" />
-    <Compile Include="Assets\Scripts\Utility\Debugging\Console\Input\DebugCommand.cs" />
+    <Compile Include="Assets\Scripts\Utility\Debugging\DebugGraphs.cs" />
+    <Compile Include="Assets\ThirdParty\DebugGUI\Examples\DebugGUIExamples.cs" />
+    <Compile Include="Assets\ThirdParty\DebugGUI\DebugGUI.cs" />
+    <Compile Include="Assets\ThirdParty\DebugGUI\Attributes\DebugGUIPrintAttribute.cs" />
+    <Compile Include="Assets\ThirdParty\DebugGUI\Attributes\DebugGUIGraphAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\DarkRift.Server.xml" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\DarkRift.dll" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\DarkRift.Client.dll" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\DarkRift.xml" />
+    <None Include="Assets\ThirdParty\DebugGUI\README.txt" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Client\DarkRift.Client.xml" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\Server\ExampleConfiguration.xml" />
     <None Include="Assets\ThirdParty\DarkRift\DarkRift\Plugins\link.xml" />

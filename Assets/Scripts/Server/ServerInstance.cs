@@ -82,6 +82,7 @@ namespace Server
             playerDespawnData.Add(new PlayerDespawnData(clientConnection.Client.ID));
             ClientConnections.Remove(clientConnection);
             serverPlayers.Remove(clientConnection.Player);
+            playerStateData.RemoveAt(playerStateData.FindIndex(ps => ps.Id == clientConnection.Client.ID));
             clientConnection.ServerInstance = null;
         }
 

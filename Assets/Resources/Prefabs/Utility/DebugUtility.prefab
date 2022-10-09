@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2570122416136579116}
   - component: {fileID: 2570122416136579117}
   - component: {fileID: 7562333748459837845}
+  - component: {fileID: -8303794202087973861}
+  - component: {fileID: 6914249989482131963}
   m_Layer: 0
   m_Name: DebugUtility
   m_TagString: Untagged
@@ -47,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugConsoleOverlayActive: 0
+  ToogleFromInput: 0
 --- !u!114 &2570122416136579117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,3 +76,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayConsoleInput: 0
+--- !u!114 &-8303794202087973861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570122416136579119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7178f8c5baa5c24a8ba7b10f2ac314a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  avgFrameRate: 0
+  avgFrameRateSmooth: 0
+--- !u!114 &6914249989482131963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570122416136579119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902b767a45c917245b420593501210c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawInBuild: 1
+  displayGraphs: 1
+  displayLogs: 0
+  backgroundColor: {r: 0, g: 0, b: 0, a: 0.7}
+  graphs: []

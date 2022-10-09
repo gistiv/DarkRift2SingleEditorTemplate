@@ -127,7 +127,7 @@ namespace Utility.Debugging.Console.Input
                 else if (e.keyCode == KeyCode.C && e.type == EventType.KeyDown && e.control)
                 {
                     // close console when inside input
-                    DebugUtility.Instance.ToogleFromInput = true;
+                    DebugUtility.Instance.ToogleConsoleFromInput = true;
                 }
 
                 // to make the input field darker
@@ -136,6 +136,7 @@ namespace Utility.Debugging.Console.Input
 
 				GUI.SetNextControlName("consoleInput");
 				GUIStyle boxStyle = GUI.skin.box;
+				boxStyle.alignment = TextAnchor.MiddleLeft;
 				boxStyle.normal.textColor = Color.white;
 				input = GUI.TextField(new Rect(0, Screen.height - inputHeight, Screen.width, inputHeight), input, GUI.skin.box);
 				GUI.FocusControl("consoleInput");

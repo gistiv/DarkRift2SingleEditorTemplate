@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Utility.Debugging.Console.Input;
 
 namespace Utility.Debugging.Console.Commands
@@ -15,14 +12,10 @@ namespace Utility.Debugging.Console.Commands
         {
 			Commands = new List<object>
 			{
-				new DebugCommand<string>("common-test", "Test command common", "common-test", () =>
+				new DebugCommand<string>("debug-graphs", "Toggles the debug graphs", "debug-graphs", () =>
 				{
-					return "Hello from common";
-				}),
-
-				new DebugCommand<string, string>("string-input-test", "Logs the given input", "string-input-test <input>", (value) =>
-				{
-					return value;
+					DebugUtility.Instance.ToggleDebugGraphs();
+					return string.Empty;
 				})
 			};
 		}
