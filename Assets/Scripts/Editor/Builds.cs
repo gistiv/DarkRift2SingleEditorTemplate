@@ -82,13 +82,13 @@ public class Builds
     [MenuItem("Builds/Compress/Client")]
     static void CompressClient()
     {
-        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Client", $"{BaseBuildPath}/Client.zip);
+        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Client", $"{BaseBuildPath}/Client.zip");
     }
                                                                      
     [MenuItem("Builds/Compress/Server")]
     static void CompressServer()
     {
-        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Server", $"{BaseBuildPath}/Server.zip);
+        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Server", $"{BaseBuildPath}/Server.zip");
     }
                                                                      
     [MenuItem("Builds/Compress/Server+Client")]
