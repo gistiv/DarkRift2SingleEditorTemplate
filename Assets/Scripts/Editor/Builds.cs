@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.IO.Compression.FileSystem;
 using System.Threading;
 using UnityEditor;
 
@@ -35,7 +36,6 @@ public class Builds
     static void BuildAndRunClient()
     {
         BuildClient();
-
         RunClient();
     }
 
@@ -43,7 +43,6 @@ public class Builds
     static void BuildAndRunServer()
     {
         BuildServer();
-
         RunServer();
     }
 
@@ -79,5 +78,23 @@ public class Builds
         Thread.Sleep(2500);
         RunClient();
     }
+    
+    [MenuItem("Builds/Compress/Client")]
+    static void CompressClient()
+    {
+        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Client", $"{BaseBuildPath}/Client.zip);
+    }
+                                                                     
+    [MenuItem("Builds/Compress/Server")]
+    static void CompressServer()
+    {
+        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Server", $"{BaseBuildPath}/Server.zip);
+    }
+                                                                     
+    [MenuItem("Builds/Compress/Server+Client")]
+    static void CompressServerAndClient()
+    {
+        CompressServer();
+        CompressClient();
+    }
 }
-
