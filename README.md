@@ -14,6 +14,7 @@ Some of the code and the bascic principals behind this template where taken form
   - Buildscripts (currently only for Windows) that easily let you build and run the server or the client
   - Command line arguments that allow the client to automatically login with a given username 
   - `SinglePlayerServer`, a component that lets you run server and client simultaneously in the Unity-Editor
+  - `DebugUtility`, a component that provides a ingame log, a console where you can type commands and the possibility to display values as graph 
 
 ### Dependencies
 
@@ -21,8 +22,11 @@ I used some assets from the Unity Asset Store for this project which are not inc
 
   - DarkRift2 (https://assetstore.unity.com/packages/tools/network/darkrift-networking-2-95309)
   - FreeFlyCam (https://assetstore.unity.com/packages/tools/camera/free-fly-camera-140739)
+  - DebugGUI Graph (https://assetstore.unity.com/packages/tools/gui/debuggui-graph-139275)
 
 FreeFlyCam is not mandatory and is only used by the camera of the server. If you don't want to download or use it, just remove the script from the camera GameObject in the "Server" scene. 
+
+DebugGUI is also not mandatory, but is a very usefull debug tool I use to display the FPS and the latency. If you want to use the `DebugUtility` you need to get this asset.
 
 ### Project Layout
 
@@ -37,6 +41,10 @@ When running the client via this menu option, the buildscript passes a randomly 
 ### SinglePlayerServer
 
 The `SinglePlayerServer` which can be added the "Server" scene, is the component which allows you to run the server and the client simultaneously in the same editor. But in fact it is actually not this component that does the magic, instead multiple pieces across the project the enable it. The `ServerInstance` component is creating its own physics scene which hosts its environment and all the players. So when you start a client in parallel to the server, the actors from both scenes don't interfere with each other as they are just visually in the same scene but not physically. When enabled the `SinglePlayerServer` component then handles the launch of the login and then automatically sets a username and logs you in and afterwards switches to the client scene and et voila, you got a server and a client running at the same time in the unity editor. Currently there is a small downside to this when running client and server in parallel, the camera of the client renders both scenes which looks a bit weird as the player is not always at the same postion for the server and the client. More about this in the ToDo section. 
+
+### DebugUtility
+
+When starting the standalone game with the command line argument "-debugUtil" or by dragging the `DebugUtility` into your scene, you enable them. When pressing "Ctrl + C" you can toggle the debug console. When the console is enabled, the inputs for server and client are disabled. The console provides a full log and when you click on a log entry, you get a popup which dispalys the stacktrace of this message. At the bottom of the log there is a export button which exports the entire log into a "debug" folder at the location of the executable. Under the log there is a samll input, where you can enter commands that then get executed. In the folder `/Scripts/Utility/Debugging/Console/Commands/` are three files in ehich the commands are defined. There are command that only get loaded when running a server or client and on file that contains commands that are loaded for both. One of the commands that are added in both is the `debug-graphs` command, that toggles a small display on the top right corner that displays a small graph containing the FPS, smoothed out FPS and for the Client it also displays the latency to the server.
 
 ### How to move on from here
 
@@ -55,4 +63,3 @@ As of now, I consider this project finished (aside from the camera thing mention
   - Shooting with lag compensation 
   - Third person mode
   - Advanced character controller with climbing and vaulting 
-  - Ingame console for logging and commands 
