@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression.FileSystem;
+using System.IO.Compression;
 using System.Threading;
 using UnityEditor;
 
@@ -12,49 +12,49 @@ public class Builds
     private static readonly string ServerPath = $"{BaseBuildPath}/Server/Server.exe";
 
     [MenuItem("Builds/Build/Client")]
-    static void BuildClient()
+    public static void BuildClient()
     {
         string[] defaultScenes = { "Assets/Scenes/Client/Login.unity", "Assets/Scenes/Client/Client.unity" };
         BuildPipeline.BuildPlayer(defaultScenes, ClientPath, BuildTarget.StandaloneWindows, BuildOptions.None);
     }
 
     [MenuItem("Builds/Build/Server")]
-    static void BuildServer()
+    public static void BuildServer()
     {
         string[] defaultScenes = { "Assets/Scenes/Server/Server.unity"};
         BuildPipeline.BuildPlayer(defaultScenes, ServerPath, BuildTarget.StandaloneWindows, BuildOptions.None);
     }
 
     [MenuItem("Builds/Build/Server+Client")]
-    static void BuildServerAndClient()
+    public static void BuildServerAndClient()
     {
         BuildServer();
         BuildClient();
     }
 
     [MenuItem("Builds/Build+Run/Client")]
-    static void BuildAndRunClient()
+    public static void BuildAndRunClient()
     {
         BuildClient();
         RunClient();
     }
 
     [MenuItem("Builds/Build+Run/Server")]
-    static void BuildAndRunServer()
+    public static void BuildAndRunServer()
     {
         BuildServer();
         RunServer();
     }
 
     [MenuItem("Builds/Build+Run/Server+Client")]
-    static void BuildAndRunServerWithClient()
+    public static void BuildAndRunServerWithClient()
     {
         BuildServerAndClient();
         RunServerAndClient();
     }
 
     [MenuItem("Builds/Run/Client")]
-    static void RunClient()
+    public static void RunClient()
     {
         string exeFileAndLocation = $"{Directory.GetCurrentDirectory()}/{ClientPath}";
         string arguments = $"-username test_{new Random().Next(100, 999)} -debugUtil";
@@ -63,7 +63,7 @@ public class Builds
     }
 
     [MenuItem("Builds/Run/Server")]
-    static void RunServer()
+    public static void RunServer()
     {
         string exeFileAndLocation = $"{Directory.GetCurrentDirectory()}/{ServerPath}";
         string arguments = "-debugUtil";
@@ -72,29 +72,42 @@ public class Builds
     }
 
     [MenuItem("Builds/Run/Server+Client")]
-    static void RunServerAndClient()
+    public static void RunServerAndClient()
     {
         RunServer();
         Thread.Sleep(2500);
         RunClient();
     }
-    
+
     [MenuItem("Builds/Compress/Client")]
-    static void CompressClient()
+    public static void CompressClient()
     {
-        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Client", $"{BaseBuildPath}/Client.zip");
+        CompressFolder("Client");
     }
-                                                                     
+
     [MenuItem("Builds/Compress/Server")]
-    static void CompressServer()
+    public static void CompressServer()
     {
-        ZipFile.CreateFromDirectory($"{BaseBuildPath}/Server", $"{BaseBuildPath}/Server.zip");
+        CompressFolder("Server");
     }
-                                                                     
+
     [MenuItem("Builds/Compress/Server+Client")]
-    static void CompressServerAndClient()
+    public static void CompressServerAndClient()
     {
         CompressServer();
         CompressClient();
+    }
+
+    private static void CompressFolder(string folderName)
+    {
+        string targetPath = $"{BaseBuildPath}/{folderName}.zip";
+
+        if (File.Exists(targetPath))
+        {
+            File.Delete(targetPath);
+        }
+
+        ZipFile.CreateFromDirectory($"{BaseBuildPath}/{folderName}", targetPath);
+        UnityEngine.Debug.Log($"Done compressing {folderName}");
     }
 }

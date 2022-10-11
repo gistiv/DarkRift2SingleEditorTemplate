@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Utility.Debugging.Console.Input;
 
 namespace Utility.Debugging.Console.Commands
 {
-	
-	public static class DebugCommandsClient
+
+    public static class DebugCommandsClient
 	{
 		public static List<object> Commands;
 

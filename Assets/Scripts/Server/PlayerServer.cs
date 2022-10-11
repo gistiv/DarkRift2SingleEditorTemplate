@@ -3,6 +3,7 @@ using Common.NetworkingData;
 using Common.Player;
 using DarkRift;
 using DarkRift.Server;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Server
@@ -15,6 +16,8 @@ namespace Server
 		public uint InputTick { get; private set; }
 		public IClient Client { get; private set; }
 		public PlayerStateData CurrentPlayerStateData => currentPlayerStateData;
+
+		public List<PlayerStateData> PlayerStateDataHistory { get; private set; }
 
 		private ClientConnection clientConnection;
 
@@ -32,6 +35,8 @@ namespace Server
 		{
 			PlayerLogic = GetComponent<PlayerLogic>();
 			eyes = gameObject.transform.Find("Eyes");
+
+			PlayerStateDataHistory = new List<PlayerStateData>();
 		}
 
 		public void Initialize(Vector3 position, ClientConnection clientConnection)
@@ -62,10 +67,21 @@ namespace Server
 			currentPlayerStateData = new PlayerStateData(Client.ID, 0, position, 0f, 0f);
 		}
 
-		public PlayerStateData PlayerUpdate()
+		public void PlayerPreUpdate()
 		{
 			inputs = inputBuffer.Get();
+			for (int i = 0; i < inputs.Length; i++)
+			{
+				if (inputs[i].Keyinputs[6])
+				{
+					serverInstance.PerformShootRayCast(inputs[i].Time, this);
+					return;
+				}
+			}
+		}
 
+		public PlayerStateData PlayerUpdate()
+		{
 			if (inputs.Length > 0)
 			{
 				PlayerInputData input = inputs[0];
@@ -89,6 +105,12 @@ namespace Server
 			transform.localPosition = currentPlayerStateData.Position;
 			transform.localRotation = Quaternion.Euler(0.0f, currentPlayerStateData.Yaw, 0.0f);
 			eyes.rotation = Quaternion.Euler(currentPlayerStateData.Pitch, currentPlayerStateData.Yaw, 0);
+
+			PlayerStateDataHistory.Add(currentPlayerStateData);
+			if (PlayerStateDataHistory.Count > 10)
+			{
+				PlayerStateDataHistory.RemoveAt(0);
+			}
 
 			return currentPlayerStateData;
 		}

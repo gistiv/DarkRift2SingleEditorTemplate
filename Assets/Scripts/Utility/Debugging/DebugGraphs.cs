@@ -36,7 +36,7 @@ namespace Utility.Debugging
                 {
                     float latencyPing = reply.RoundtripTime;
 
-                    DebugGUI.SetGraphProperties("latencyPing", "Latency: " + latencyPing.ToString("F0") + "ms", 0, 100, 0, new Color(1f, 1f, 1f), true);
+                    DebugGUI.SetGraphProperties("latencyPing", "Latency: " + latencyPing.ToString("F0") + "ms", 0, 250, 0, new Color(1f, 1f, 1f), true);
                     DebugGUI.Graph("latencyPing", latencyPing);
                 }
             }

@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 
 namespace Utility.Debugging.Console.Input
 {

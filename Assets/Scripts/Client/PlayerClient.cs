@@ -29,6 +29,8 @@ namespace Client
         private Camera playerCamera;
         private Transform eyes;
 
+        private uint shootCooldownResetFrame;
+
         [Header("Settings")]
         [SerializeField]
         private float sensitivityX = 3;
@@ -59,7 +61,35 @@ namespace Client
                 Cursor.lockState = CursorLockMode.Locked;
 
                 interpolation.CurrentData = new PlayerStateData(this.id, 0, Vector3.zero, 0f, 0f);
+
+                eyes.gameObject.GetComponent<MeshRenderer>().enabled = false;
             }
+        }
+
+        void Update()
+        {
+            if (!isOwn)
+            {
+                return;
+            }
+
+            // the mouse movement can't be handled in the fixed update as the camera movement is stuttering then
+            yaw += Input.GetAxis("Mouse X") * sensitivityX;
+            pitch += Input.GetAxis("Mouse Y") * sensitivityY;
+
+            // to prevent from flipping the camera upside down
+            if (pitch >= 35.0)
+            {
+                pitch = 35f;
+            }
+            else if (pitch <= -55.0)
+            {
+                pitch = -55f;
+            }
+
+            Quaternion viewRotation = Quaternion.Euler(pitch, yaw, 0);
+            eyes.rotation = viewRotation;
+            playerCamera.transform.rotation = viewRotation;
         }
 
         void FixedUpdate()
@@ -91,21 +121,23 @@ namespace Client
                 inputs[3] = Input.GetKey(KeyCode.D);
                 inputs[4] = Input.GetKey(KeyCode.Space);
                 inputs[5] = Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift);
-                inputs[6] = Input.GetMouseButton(0);
 
-                yaw += Input.GetAxis("Mouse X") * sensitivityX;
-                pitch += Input.GetAxis("Mouse Y") * sensitivityY;
-
-                if (pitch >= 35.0)
+                // server also checks if shooting is allowed so a manipulation of this value won't give the client an adavantage,
+                // this is just to not spawn endless bullets that aren't actually fired on the server side
+                if(shootCooldownResetFrame < GameManager.Instance.LastReceivedServerTick)
                 {
-                    pitch = 35f;
+                    inputs[6] = Input.GetMouseButton(0);
                 }
-                else if (pitch <= -55.0)
+                else
                 {
-                    pitch = -55f;
+                    inputs[6] = false;
                 }
 
-                playerCamera.transform.rotation = Quaternion.Euler(pitch, yaw, 0);
+                if (inputs[6])
+                {
+                    FireWeapon();
+                    shootCooldownResetFrame = WeaponsCalculationHelper.CaclulateShootCooldownFrame(GameManager.Instance.LastReceivedServerTick - 1U);
+                }
             }
 
             PlayerInputData inputData = new PlayerInputData(inputs, yaw, pitch, GameManager.Instance.LastReceivedServerTick - 1U);
@@ -120,6 +152,20 @@ namespace Client
             }
 
             reconciliationHistory.Enqueue(new ReconciliationInfo(GameManager.Instance.ClientTick, nextStateData, inputData));
+        }
+
+        public void FireWeapon()
+        {
+            GameObject bullet = Instantiate(Resources.Load<GameObject>(@"Prefabs\Gameplay\Bullet"), transform);
+            bullet.transform.position = eyes.position + (eyes.forward * 0.5f);
+            bullet.transform.rotation = eyes.rotation;
+            Destroy(bullet, 1f);
+        }
+
+        public void GotHitByBullet(Vector3 hitPoint, Vector3 hitNormal)
+        {
+            GameObject go = Instantiate(Resources.Load<GameObject>(@"Prefabs\Gameplay\Player\BloodyHit"), hitPoint + hitNormal * 0.05f, Quaternion.LookRotation(hitNormal), transform);
+            Destroy(go, 2f);
         }
 
         public void OnServerDataUpdate(PlayerStateData playerStateData)

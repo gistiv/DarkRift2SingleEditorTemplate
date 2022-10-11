@@ -95,10 +95,31 @@ namespace Client
 
             foreach (PlayerStateData data in gameUpdateData.UpdateData)
             {
-                PlayerClient p;
-                if (players.TryGetValue(data.Id, out p))
+                PlayerClient player;
+                if (players.TryGetValue(data.Id, out player))
                 {
-                    p.OnServerDataUpdate(data);
+                    player.OnServerDataUpdate(data);
+                }
+            }
+
+            foreach (BulletHitData data in gameUpdateData.HitData)
+            {
+                PlayerClient player;
+                if (players.TryGetValue(data.PlayerId, out player))
+                {
+                    player.GotHitByBullet(data.HitPoint, data.HitNormal);
+                }
+            }
+
+            foreach (PlayerFireWeaponData data in gameUpdateData.FireWeaponData)
+            {
+                PlayerClient player;
+                if (players.TryGetValue(data.PlayerId, out player))
+                {
+                    if(data.PlayerId != ConnectionManager.Instance.PlayerId)
+                    {
+                        player.FireWeapon();
+                    }
                 }
             }
         }
@@ -120,9 +141,11 @@ namespace Client
 
         void SpawnPlayer(PlayerSpawnData playerSpawnData)
         {
-            GameObject go = Instantiate(Resources.Load<GameObject>("Prefabs\\Gameplay\\Player\\Player"));
-            // PlayerInterpolation gets added through the RequireComponentent of the PlayerClient
+            GameObject go = Instantiate(Resources.Load<GameObject>(@"Prefabs\Gameplay\Player\Player"));
+
             PlayerClient player = go.AddComponent<PlayerClient>();
+            go.AddComponent<Crosshair>();
+            // PlayerInterpolation gets added through the RequireComponentent of the PlayerClient
 
             player.Initialize(playerSpawnData.Id, playerSpawnData.Name);
             players.Add(playerSpawnData.Id, player);
