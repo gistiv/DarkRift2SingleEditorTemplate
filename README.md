@@ -1,5 +1,5 @@
 # DarkRift2SingleEditorTemplate
-A minimal project template that shows how to use and launch a DarkRift2 client and server in a single Unity-Editor (without parallel sync). Also added some build pipeline ideas that further improve the developer experience and boost productivity. 
+A (not so) minimal project template that shows how to use and launch a DarkRift2 client and server in a single Unity-Editor. I also added some build scripts and debugging tools that further improve the developer experience and boost productivity. 
 
 The project is intended as a template for 3D multiplayer games with Unity and DarkRift2 with the aim for a maximum in productivity and comfort when it comes to developing multiplayer games. Managing server and client builds can often be a pain in the a** and not beeing able to run the server and the client in the same project slows down your development a lot and can be extremly frustrating. 
 
@@ -11,6 +11,7 @@ Some of the code and the bascic principals behind this template where taken form
   - Client that is able to login and "play"
   - Multiplayer first person character controller (Walk, Look, Jump, Run)
   - Server authoritive movement with client side prediction and reconciliation
+  - (Raycast-)Shooting with lag compensation
   - Buildscripts (currently only for Windows) that easily let you build and run the server or the client
   - Command line arguments that allow the client to automatically login with a given username 
   - `SinglePlayerServer`, a component that lets you run server and client simultaneously in the Unity-Editor
@@ -48,7 +49,7 @@ When starting the standalone game with the command line argument "-debugUtil" or
 
 ### How to move on from here
 
-As already mentioned above, some of the code is taken from here https://github.com/LukeStampfli/EmbeddedFPSExample, but the tutorial is not completly finished in this repository. The last part of the tutorial, shooting with lag compensation, isn't implemented and waits for you to be done!
+As already mentioned above, some of the code is taken from here https://github.com/LukeStampfli/EmbeddedFPSExample, but the tutorial is not completly finished in this repository. The last part of the tutorial, shooting with lag compensation, isn't completly implemented. The shooting is there but there is no health system and related stuff like dying and respawning. Maybe add a nice map and some sound to howe to implement stuff like this in an online game.  
 
 Feel free to use this template to start a new project or use it as a learning resource for DarkRift2, using build scripts in Unity or muliplayer games in general. 
 
@@ -58,8 +59,7 @@ One thing that bothers me and I want to change for sure is, that when using the 
 
 ### Future Plans 
 
-As of now, I consider this project finished (aside from the camera thing mentioned above) but I may pick it up at some point and add some of the stuff that I implement for the games which I started with this template which may be:
+As of now, I consider this project finished but I may pick it up at some point and add some of the stuff that I implement for the games which I started with this template which may be:
 
-  - Shooting with lag compensation 
   - Third person mode
   - Advanced character controller with climbing and vaulting 
